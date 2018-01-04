@@ -1,3 +1,3 @@
-import $ from 'jquery';
+import app from './app';
 
-$('#app').text('Hello World!!!');
+app.start();
