@@ -21,8 +21,8 @@ const TaskView = Backbone.View.extend({
   },
 
   events: {
-    'click .btn-delete': 'deleteTask',
-    'click .btn-edit': 'editTask'
+    'click #btn-delete': 'deleteTask',
+    'click #btn-edit': 'editTask'
   },
 
   deleteTask() {
