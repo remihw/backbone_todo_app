@@ -12,6 +12,7 @@ const TaskView = Backbone.View.extend({
     let templateToRender = null;
 
     dust.render(template, this.model.toJSON(), (err, result) => {
+      console.log(result);
       templateToRender = result;
     });
 

@@ -1,7 +1,8 @@
 import Backbone from 'backbone';
 import dust from 'dustjs-helpers';
 import TaskModel from '../models/TaskModel';
-import TaskView from '../views/TaskView';
+import TaskCollection from '../collections/TaskCollection';
+import TaskCollectionView from './TaskCollectionView';
 import template from '../templates/main-layout-template.html';
 
 const MainLayoutView = Backbone.View.extend({
@@ -14,15 +15,21 @@ const MainLayoutView = Backbone.View.extend({
 
   showTaskListView() {
     const task1 = new TaskModel({
-      taskDescription: 'Create an awesome todo app'
+      taskDescription: 'Create an awesome todo app.'
     });
 
-    const taskView = new TaskView({
-      model: task1
+    const task2 = new TaskModel({
+      taskDescription: 'Learn how to use Marionette.js.'
     });
 
-    const $taskListContainer = this.$el.find('#task-list');
-    $taskListContainer.html(taskView.$el);
+    const taskCollection = new TaskCollection([task1, task2]);
+
+    const taskCollectionView = new TaskCollectionView({
+      collection: taskCollection
+    });
+
+    const $taskListContainer = this.$el.find('#task-list-view');
+    $taskListContainer.html(taskCollectionView.$el);
   },
 
   render() {
