@@ -7,19 +7,16 @@ import template from '../templates/task-collection-template.html';
 const taskCollectionView = Backbone.View.extend({
   collection: TaskCollection,
 
+  id: 'task-item-collection',
+
   initialize() {
     this.render();
   },
 
   render() {
-    let templateToRender = null;
-
     this.collection.each((model) => {
       const taskView = new TaskView({ model: model });
-      dust.render(template, taskView.model.toJSON(), (err, result) => {
-        templateToRender = result;
-        this.$el.append(templateToRender);
-      });
+      this.$el.append(taskView.render().el.innerHTML);
     });
   }
 });
