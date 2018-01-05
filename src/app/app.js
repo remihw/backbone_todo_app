@@ -3,7 +3,7 @@ import AppRouter from './routers/AppRouter';
 
 const app = {
   start() {
-    let router = new AppRouter();
+    const router = new AppRouter();
     if (!Backbone.history.started) {
       Backbone.history.start();
     }

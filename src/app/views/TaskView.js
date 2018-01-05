@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import dust from 'dustjs-helpers';
 import Backbone from 'backbone';
-import template from '../templates/TaskTemplate.html';
+import dust from 'dustjs-helpers';
+import template from '../templates/task-template.html';
 
 const TaskView = Backbone.View.extend({
   initialize() {
@@ -18,7 +18,7 @@ const TaskView = Backbone.View.extend({
     this.$el.html(templateToRender);
 
     return this;
-  },
+  }
 });
 
 export default TaskView;

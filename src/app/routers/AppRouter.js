@@ -1,21 +1,13 @@
 import Backbone from 'backbone';
-import TaskView from '../views/TaskView';
-import TaskModel from '../models/TaskModel';
+import MainLayoutView from '../views/MainLayoutView';
 
 const AppRouter = Backbone.Router.extend({
   routes: {
-    '*default': 'onDefaultRoute',
+    '*default': 'onDefaultRoute'
   },
   onDefaultRoute() {
-    const task1 = new TaskModel({
-      taskDescription: 'Create a todo list in this awesome app.',
-    });
-
-    const view = new TaskView({
-      el: '#app',
-      model: task1,
-    });
-  },
+    const mainLayoutView = new MainLayoutView();
+  }
 });
 
 export default AppRouter;
