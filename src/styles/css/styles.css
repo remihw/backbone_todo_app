@@ -3,5 +3,21 @@ body {
 }
 
 #task-list-view {
-  background-color: #fff;
+  color: #333;
+}
+
+#task-list {
+  box-sizing: border-box;
+  color: #333;
+  background-color: #eaeaea;
+  padding: 20px 32px;
+  min-height: 500px;
+  max-width: 600px;
+}
+
+#task-list-item {
+  font-size: 15px;
+  padding: 14px 0 14px 0;
+  margin: 0 0 14px 0;
+  border-bottom: solid 1px #333;
 }

@@ -13,25 +13,6 @@ const MainLayoutView = Backbone.View.extend({
     this.showTaskListView();
   },
 
-  showTaskListView() {
-    const task1 = new TaskModel({
-      taskDescription: 'Create an awesome todo app.'
-    });
-
-    const task2 = new TaskModel({
-      taskDescription: 'Learn how to use Marionette.js.'
-    });
-
-    const taskCollection = new TaskCollection([task1, task2]);
-
-    const taskCollectionView = new TaskCollectionView({
-      collection: taskCollection
-    });
-
-    const $taskListContainer = this.$el.find('#task-list-view');
-    $taskListContainer.html(taskCollectionView.$el);
-  },
-
   render() {
     let templateToRender = null;
 
@@ -40,6 +21,19 @@ const MainLayoutView = Backbone.View.extend({
     });
 
     this.$el.html(templateToRender);
+  },
+
+  showTaskListView() {
+    const task1 = new TaskModel({ description: 'Create an awesome todo app in Backbone.' });
+    const task2 = new TaskModel({ description: 'Learn how to use Marionette.' });
+    const taskCollection = new TaskCollection([task1, task2]);
+
+    const taskCollectionView = new TaskCollectionView({
+      collection: taskCollection
+    });
+
+    const $taskListContainer = this.$el.find('#task-list-view');
+    $taskListContainer.html(taskCollectionView.$el);
   }
 });
 

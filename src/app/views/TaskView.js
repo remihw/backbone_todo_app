@@ -18,6 +18,19 @@ const TaskView = Backbone.View.extend({
     this.$el.html(templateToRender);
 
     return this;
+  },
+
+  events: {
+    'click .btn-delete': 'deleteTask',
+    'click .btn-edit': 'editTask'
+  },
+
+  deleteTask() {
+    this.model.collection.remove(this.model);
+  },
+
+  editTask() {
+    console.log('test');
   }
 });
 
