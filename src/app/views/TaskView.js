@@ -8,7 +8,10 @@ const TaskView = Backbone.View.extend({
     // add code here
   },
 
-  render() {
+  render(model, option) {
+    console.log(model);
+    console.log(option);
+
     let templateToRender = null;
 
     dust.render(template, this.model.toJSON(), (err, result) => {
@@ -30,8 +33,8 @@ const TaskView = Backbone.View.extend({
     this.model.collection.remove(this.model);
   },
 
-  editTask() {
-    console.log('test');
+  editTask(model) {
+    this.render(model, { editMode: true });
     // $('.task-list-row').css('display', 'none');
     // $('.task-list-row-edit').css('display', 'block');
   },
