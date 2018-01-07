@@ -4,33 +4,67 @@ body {
 
 #task-list-view {
   color: #333;
+  padding: 10px 30px;
+  background-color: #dadada;
+  max-width: 600px;
 }
 
 #task-list {
+  position: relative;
   box-sizing: border-box;
   color: #333;
   background-color: #dadada;
-  padding: 20px 32px;
-  min-height: 500px;
+  padding: 0 0 60px 0;
 }
 
-#task-list-item {
+.task-list-row {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: nowrap;
-  font-size: 15px;
+  font-size: 16px;
   padding: 12px 0;
   border-bottom: solid 1px #b9b9b9;
 }
 
-#task-item-btns {
+.task-list-row:hover .task-item-btns {
+  display: block;
+}
+
+.task-list-row-edit {
+  display: none;
+}
+
+.task-description {
+  display: flex;
+  cursor: pointer;
+}
+
+.task-completed {
+  text-decoration: line-through;
+}
+
+.fa-circle-o, .fa-check-circle-o {
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+.task-item-btns {
   align-self: flex-end;
+  /* display: none; */
   color: #555;
 }
 
-.fa {
+.fa-trash, .fa-pencil {
   font-size: 18px;
   margin: 0 0 0 16px;
   cursor: pointer;
+}
+
+#input-new-task {
+  box-sizing:border-box;
+  position: absolute;
+  width: 100%;
+  height: 28px;
+  bottom: 10px;
 }

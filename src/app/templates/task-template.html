@@ -1,7 +1,18 @@
-<div id="task-list-item">
-  <div>{description}</div>
-  <div id="task-item-btns">
+<div class="task-list-row">
+  <div class="task-description">
+    {^completed}
+    <i class="fa fa-circle-o" class="task-complete-false"></i>
+    <div>{description}</div>
+    {:else}
+    <i class="fa fa-check-circle-o" class="task-complete-true"></i>
+    <div class="task-completed">{description}</div>
+    {/completed}
+  </div>
+  <div class="task-item-btns">
     <i class="fa fa-trash" id="btn-delete"></i>
     <i class="fa fa-pencil" id="btn-edit"></i>
   </div>
+</div>
+<div class="task-list-row-edit">
+  <input />
 </div>

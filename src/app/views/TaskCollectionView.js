@@ -1,13 +1,14 @@
 import Backbone from 'backbone';
-// import dust from 'dustjs-helpers';
 import TaskView from '../views/TaskView';
-// import template from '../templates/task-collection-template.html';
+import AddTaskView from './AddTaskView';
 
 const taskCollectionView = Backbone.View.extend({
   id: 'task-list',
 
   initialize() {
     this.listenTo(this.collection, 'remove', this.render);
+    this.listenTo(this.collection, 'add', this.render);
+    this.listenTo(this.collection, 'change:completed', this.render);
     this.render();
   },
 
@@ -17,6 +18,15 @@ const taskCollectionView = Backbone.View.extend({
       const taskView = new TaskView({ model });
       this.$el.append(taskView.render().el);
     });
+    this.showAddTaskView();
+  },
+
+  showAddTaskView() {
+    const addTaskView = new AddTaskView({
+      collection: this.collection
+    });
+
+    this.$el.append(addTaskView.render().el);
   }
 });
 

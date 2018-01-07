@@ -5,7 +5,7 @@ import template from '../templates/task-template.html';
 
 const TaskView = Backbone.View.extend({
   initialize() {
-    this.render();
+    // add code here
   },
 
   render() {
@@ -22,7 +22,8 @@ const TaskView = Backbone.View.extend({
 
   events: {
     'click #btn-delete': 'deleteTask',
-    'click #btn-edit': 'editTask'
+    'click #btn-edit': 'editTask',
+    'click .task-description': 'toggleTaskCompletion'
   },
 
   deleteTask() {
@@ -31,6 +32,12 @@ const TaskView = Backbone.View.extend({
 
   editTask() {
     console.log('test');
+    // $('.task-list-row').css('display', 'none');
+    // $('.task-list-row-edit').css('display', 'block');
+  },
+
+  toggleTaskCompletion() {
+    this.model.set('completed', !this.model.get('completed'));
   }
 });
 
