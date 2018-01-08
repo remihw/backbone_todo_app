@@ -30,8 +30,13 @@ const AddTaskView = Backbone.View.extend({
       const newTask = new TaskModel({
         description: $('#input-new-task').val()
       });
-      this.collection.add(newTask);
-      $('#input-new-task').focus();
+      if (!newTask.isValid()) {
+        $('#vaildation-error').text(newTask.validationError);
+      } else {
+        this.collection.add(newTask);
+        $('#input-new-task').focus();
+        $('#vaildation-error').text('');
+      }
     }
   }
 });

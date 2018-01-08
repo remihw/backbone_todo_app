@@ -5,13 +5,14 @@ import template from '../templates/task-template.html';
 
 const TaskView = Backbone.View.extend({
   initialize() {
-    // add code here
+    // code here
   },
 
-  render(model, option) {
-    console.log(model);
-    console.log(option);
+  id() {
+    return `task_${this.model.cid}`;
+  },
 
+  render() {
     let templateToRender = null;
 
     dust.render(template, this.model.toJSON(), (err, result) => {
@@ -25,22 +26,40 @@ const TaskView = Backbone.View.extend({
 
   events: {
     'click #btn-delete': 'deleteTask',
-    'click #btn-edit': 'editTask',
-    'click .task-description': 'toggleTaskCompletion'
+    'click #btn-edit': 'startEditMode',
+    'keydown': 'onFieldKeyDown',
+    'click .task-description': 'toggleTaskCompletion',
+    'focusout input': 'onFieldFocusOut'
   },
 
   deleteTask() {
     this.model.collection.remove(this.model);
   },
 
-  editTask(model) {
-    this.render(model, { editMode: true });
-    // $('.task-list-row').css('display', 'none');
-    // $('.task-list-row-edit').css('display', 'block');
+  startEditMode() {
+    this.model.set('isBeingEdited', true);
+    $(`#task_${this.model.cid} input`).focus();
+  },
+
+  endEditMode() {
+    this.model.set('isBeingEdited', false);
+  },
+
+  onFieldKeyDown(e) {
+    if (e.which === 13) {
+      this.model.set('description', $(`#task_${this.model.cid} input`).val());
+      this.endEditMode();
+    } else if (e.which === 27) {
+      this.endEditMode();
+    }
+  },
+
+  onFieldFocusOut() {
+    this.endEditMode();
   },
 
   toggleTaskCompletion() {
-    this.model.set('completed', !this.model.get('completed'));
+    this.model.set('isCompleted', !this.model.get('isCompleted'));
   }
 });
 

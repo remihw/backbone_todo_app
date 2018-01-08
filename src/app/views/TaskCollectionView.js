@@ -8,7 +8,8 @@ const taskCollectionView = Backbone.View.extend({
   initialize() {
     this.listenTo(this.collection, 'remove', this.render);
     this.listenTo(this.collection, 'add', this.render);
-    this.listenTo(this.collection, 'change:completed', this.render);
+    this.listenTo(this.collection, 'change:isCompleted', this.render);
+    this.listenTo(this.collection, 'change:isBeingEdited', this.render);
     this.render();
   },
 
