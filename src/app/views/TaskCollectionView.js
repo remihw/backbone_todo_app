@@ -8,9 +8,9 @@ const taskCollectionView = Backbone.View.extend({
   baseCollection: [],
 
   initialize() {
-    this.baseCollection = this.collection.models;
-    this.listenTo(this.collection, 'remove', this.render);
-    this.listenTo(this.collection, 'add', this.render);
+    this.baseCollection = this.collection.models.slice();
+    this.listenTo(this.collection, 'remove', this.onRemovetask);
+    this.listenTo(this.collection, 'add', this.onAddNewTask);
     this.listenTo(this.collection, 'change:isCompleted', this.render);
     this.listenTo(this.collection, 'change:isBeingEdited', this.render);
     this.listenTo(this.collection, 'apply:filter', this.onApplyFilter);
@@ -34,6 +34,16 @@ const taskCollectionView = Backbone.View.extend({
     });
 
     this.$el.append(addTaskView.render().el);
+  },
+
+  onRemovetask(removedModel) {
+    this.baseCollection = this.baseCollection.filter(model => model !== removedModel);
+    this.render();
+  },
+
+  onAddNewTask(addedModel) {
+    this.baseCollection.push(addedModel);
+    this.render();
   },
 
   onApplyFilter(filter) {
