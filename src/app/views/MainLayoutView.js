@@ -11,7 +11,8 @@ const MainLayoutView = Backbone.View.extend({
   events: {
     'click #btn-show-all': 'onFilterNone',
     'click #btn-show-complete': 'onFilterComplete',
-    'click #btn-show-incomplete': 'onFilterIncomplete'
+    'click #btn-show-incomplete': 'onFilterIncomplete',
+    'click #btn-remove-complete': 'onDeleteComplete'
   },
 
   initialize() {
@@ -22,7 +23,7 @@ const MainLayoutView = Backbone.View.extend({
   render() {
     let templateToRender = null;
 
-    dust.render(template, {}, (err, result) => {
+    dust.render(template, {totalTasks: 0, incompleteTasks: 0}, (err, result) => {
       templateToRender = result;
     });
 
@@ -30,31 +31,32 @@ const MainLayoutView = Backbone.View.extend({
   },
 
   onFilterNone() {
-    this.taskCollection.trigger('apply:filter');
+    this.taskCollection.trigger('apply:filter', null);
   },
 
   onFilterComplete() {
-    this.taskCollection.trigger('apply:filter', {isCompleted: true});
+    this.taskCollection.trigger('apply:filter', true);
   },
 
   onFilterIncomplete() {
-    this.taskCollection.trigger('apply:filter', {isCompleted: false});
+    this.taskCollection.trigger('apply:filter', false);
+  },
+
+  onDeleteComplete() {
+    this.taskCollection.trigger('remove:model');
   },
 
   showTaskListView() {
     const task1 = new TaskModel({description: 'Create a todo app in Backbone.'}),
-          task2 = new TaskModel({description: 'Learn how to use Marionette.'});
+          task2 = new TaskModel({description: 'Learn how to use Marionette.'}),
+          taskCollection = new TaskCollection([task1, task2]),
+          taskCollectionView = new TaskCollectionView({
+            collection: taskCollection
+          }),
+          $taskListContainer = this.$el.find('#task-list-view');
 
-    this.taskCollection = new TaskCollection([task1, task2]);
-
-    const taskCollectionView = new TaskCollectionView({
-      collection: this.taskCollection
-    });
-
-    const $taskListContainer = this.$el.find('#task-list-view');
-
+    this.taskCollection = taskCollection;
     $taskListContainer.html(taskCollectionView.$el);
-
   }
 });
 
