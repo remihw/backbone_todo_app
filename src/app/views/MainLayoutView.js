@@ -3,6 +3,7 @@ import dust from 'dustjs-helpers';
 import TaskModel from '../models/TaskModel';
 import TaskCollection from '../collections/TaskCollection';
 import TaskCollectionView from './TaskCollectionView';
+import TasksCompletedView from './TasksCompletedView';
 import template from '../templates/main-layout-template.html';
 
 const MainLayoutView = Backbone.View.extend({
@@ -18,12 +19,13 @@ const MainLayoutView = Backbone.View.extend({
   initialize() {
     this.render();
     this.showTaskListView();
+    this.showTasksCompleted();
   },
 
   render() {
     let templateToRender = null;
 
-    dust.render(template, {totalTasks: 0, incompleteTasks: 0}, (err, result) => {
+    dust.render(template, {incompleteTasks: this.completedTasks, totalTasks: this.totalTasks}, (err, result) => {
       templateToRender = result;
     });
 
@@ -57,6 +59,17 @@ const MainLayoutView = Backbone.View.extend({
 
     this.taskCollection = taskCollection;
     $taskListContainer.html(taskCollectionView.$el);
+  },
+
+  showTasksCompleted() {
+    // render TasksCompletedView and append it to div on main-layout-template
+    const tasksCompleted = new TasksCompletedView({
+            collection: this.taskCollection
+          }),
+
+          $tasksCompletedContainer = this.$el.find('#tasks-completed');
+
+    $tasksCompletedContainer.html(tasksCompleted.$el);
   }
 });
 

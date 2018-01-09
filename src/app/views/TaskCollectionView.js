@@ -11,9 +11,9 @@ const taskCollectionView = Backbone.View.extend({
 
   initialize() {
     this.baseCollection = this.collection.models.slice();
-    this.listenTo(this.collection, 'remove', this.onRemovetask);
+    this.listenTo(this.collection, 'remove', this.onRemoveTask);
     this.listenTo(this.collection, 'add', this.onAddNewTask);
-    this.listenTo(this.collection, 'change:isCompleted', this.render);
+    this.listenTo(this.collection, 'change:isCompleted', this.onToggleCompletion);
     this.listenTo(this.collection, 'change:isBeingEdited', this.render);
     this.listenTo(this.collection, 'apply:filter', this.onApplyFilter);
     this.listenTo(this.collection, 'remove:model', this.onRemoveCompleted);
@@ -39,7 +39,11 @@ const taskCollectionView = Backbone.View.extend({
     this.$el.append(addTaskView.render().el);
   },
 
-  onRemovetask(removedModel) {
+  onToggleCompletion() {
+    this.onApplyFilter(this.filter);
+  },
+
+  onRemoveTask(removedModel) {
     this.baseCollection = this.baseCollection.filter(model => model !== removedModel);
     this.onApplyFilter(this.filter);
   },
@@ -61,6 +65,7 @@ const taskCollectionView = Backbone.View.extend({
     this.render();
   },
 
+  // not working with TasksCompletedView??
   onRemoveCompleted() {
     this.baseCollection = this.baseCollection.filter(model => model.attributes.isCompleted !== true);
     this.onApplyFilter(this.filter);
