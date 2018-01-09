@@ -5,7 +5,10 @@ import AddTaskView from './AddTaskView';
 const taskCollectionView = Backbone.View.extend({
   id: 'task-list',
 
+  baseCollection: [],
+
   initialize() {
+    this.baseCollection = this.collection.models;
     this.listenTo(this.collection, 'remove', this.render);
     this.listenTo(this.collection, 'add', this.render);
     this.listenTo(this.collection, 'change:isCompleted', this.render);
@@ -34,13 +37,13 @@ const taskCollectionView = Backbone.View.extend({
   },
 
   onApplyFilter(filter) {
-    // Todo List:
-    // whole collection is gone after this
-    // add dynamic filters
-    // can't switch from finsished to unfinished (need to re-filter original array)
+    this.collection.reset(this.baseCollection);
 
-    const filteredModels = this.collection.where(filter);
-    this.collection.reset(filteredModels);
+    if (filter !== undefined) {
+      const filteredModels = this.collection.where(filter);
+      this.collection.reset(filteredModels);
+    }
+
     this.render();
   }
 });

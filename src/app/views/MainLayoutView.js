@@ -9,6 +9,7 @@ const MainLayoutView = Backbone.View.extend({
   el: '#app',
 
   events: {
+    'click #btn-show-all': 'onFilterNone',
     'click #btn-show-complete': 'onFilterComplete',
     'click #btn-show-incomplete': 'onFilterIncomplete'
   },
@@ -26,6 +27,10 @@ const MainLayoutView = Backbone.View.extend({
     });
 
     this.$el.html(templateToRender);
+  },
+
+  onFilterNone() {
+    this.taskCollection.trigger('apply:filter');
   },
 
   onFilterComplete() {
