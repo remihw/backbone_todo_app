@@ -6,6 +6,8 @@ import TaskCollectionView from './TaskCollectionView';
 import TasksCompletedView from './TasksCompletedView';
 import template from '../templates/main-layout-template.html';
 
+// verwijder voltooid en delete werkt nog niet met gedeelte collectie
+
 const MainLayoutView = Backbone.View.extend({
   el: '#app',
 
@@ -52,18 +54,22 @@ const MainLayoutView = Backbone.View.extend({
     const task1 = new TaskModel({description: 'Create a todo app in Backbone.'}),
           task2 = new TaskModel({description: 'Learn how to use Marionette.'}),
           taskCollection = new TaskCollection([task1, task2]),
+          baseTaskCollection = taskCollection.models.slice(),
           taskCollectionView = new TaskCollectionView({
-            collection: taskCollection
+            collection: taskCollection,
+            baseCollection: baseTaskCollection
           }),
           $taskListContainer = this.$el.find('#task-list-view');
 
     this.taskCollection = taskCollection;
+    this.baseTaskCollection = baseTaskCollection;
+
     $taskListContainer.html(taskCollectionView.$el);
   },
 
   showTasksCompleted() {
-    // render TasksCompletedView and append it to div on main-layout-template
     const tasksCompleted = new TasksCompletedView({
+            baseCollection: this.baseTaskCollection,
             collection: this.taskCollection
           }),
 

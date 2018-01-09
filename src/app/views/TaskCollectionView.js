@@ -9,8 +9,9 @@ const taskCollectionView = Backbone.View.extend({
 
   filter: null,
 
-  initialize() {
-    this.baseCollection = this.collection.models.slice();
+  initialize(options) {
+    this.baseCollection = options.baseCollection;
+
     this.listenTo(this.collection, 'remove', this.onRemoveTask);
     this.listenTo(this.collection, 'add', this.onAddNewTask);
     this.listenTo(this.collection, 'change:isCompleted', this.onToggleCompletion);
@@ -65,9 +66,8 @@ const taskCollectionView = Backbone.View.extend({
     this.render();
   },
 
-  // not working with TasksCompletedView??
   onRemoveCompleted() {
-    this.baseCollection = this.baseCollection.filter(model => model.attributes.isCompleted !== true);
+    this.baseCollection = this.baseCollection.filter(model => model.get('isCompleted') !== true);
     this.onApplyFilter(this.filter);
   }
 });
