@@ -1,5 +1,6 @@
 {^isBeingEdited}
 <div class="task-list-row">
+  
   <div class="task-description">
     {^isCompleted}
     <i class="fa fa-circle-o" class="task-complete-false"></i>
@@ -9,11 +10,14 @@
     <div class="task-completed">{description}</div>
     {/isCompleted}
   </div>
+
   <div class="task-item-btns">
-    <i class="fa fa-trash" id="btn-delete"></i>
-    <i class="fa fa-pencil" id="btn-edit"></i>
+      <i class="fa fa-pencil" id="btn-edit"></i>
+    <i class="fa fa-times" id="btn-delete"></i>
   </div>
+
 </div>
+
 {:else}
 <div class="task-list-row-edit">
   <input value="{description}"/>

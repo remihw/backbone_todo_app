@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import Backbone from 'backbone';
 import dust from 'dustjs-helpers';
 import TaskModel from '../models/TaskModel';
@@ -22,6 +23,7 @@ const MainLayoutView = Backbone.View.extend({
     this.render();
     this.showTaskListView();
     this.showTasksCompleted();
+    $('#btn-show-all').addClass('active-filter-btn');
   },
 
   render() {
@@ -36,14 +38,20 @@ const MainLayoutView = Backbone.View.extend({
 
   onFilterNone() {
     this.taskCollection.trigger('apply:filter', null);
+    $('#btn-show-complete, #btn-show-incomplete').removeClass('active-filter-btn');
+    $('#btn-show-all').addClass('active-filter-btn');
   },
 
   onFilterComplete() {
     this.taskCollection.trigger('apply:filter', true);
+    $('#btn-show-all, #btn-show-incomplete').removeClass('active-filter-btn');
+    $('#btn-show-complete').addClass('active-filter-btn');
   },
 
   onFilterIncomplete() {
     this.taskCollection.trigger('apply:filter', false);
+    $('#btn-show-all, #btn-show-complete').removeClass('active-filter-btn');
+    $('#btn-show-incomplete').addClass('active-filter-btn');
   },
 
   onDeleteComplete() {
