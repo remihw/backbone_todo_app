@@ -54,7 +54,7 @@ const MainLayoutView = Backbone.View.extend({
     const task1 = new TaskModel({description: 'Create a todo app in Backbone.'}),
           task2 = new TaskModel({description: 'Learn how to use Marionette.'}),
           taskCollection = new TaskCollection([task1, task2]),
-          baseTaskCollection = taskCollection.models.slice(),
+          baseTaskCollection = new TaskCollection([task1, task2]),
           taskCollectionView = new TaskCollectionView({
             collection: taskCollection,
             baseCollection: baseTaskCollection

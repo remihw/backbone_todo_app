@@ -1,11 +1,10 @@
 import Backbone from 'backbone';
+import _ from 'lodash';
 import TaskView from '../views/TaskView';
 import AddTaskView from './AddTaskView';
 
 const taskCollectionView = Backbone.View.extend({
   id: 'task-list',
-
-  baseCollection: [],
 
   filter: null,
 
@@ -45,18 +44,24 @@ const taskCollectionView = Backbone.View.extend({
   },
 
   onRemoveTask(removedModel) {
-    this.baseCollection = this.baseCollection.filter(model => model !== removedModel);
+    this.baseCollection.remove(removedModel);
     this.onApplyFilter(this.filter);
   },
 
   onAddNewTask(addedModel) {
-    this.baseCollection.push(addedModel);
+    this.baseCollection.add(addedModel);
+    this.onApplyFilter(this.filter);
+  },
+
+  onRemoveCompleted() {
+    const completedTasks = this.baseCollection.models.filter(model => model.get('isCompleted') !== true);
+    this.baseCollection.reset(completedTasks);
     this.onApplyFilter(this.filter);
   },
 
   onApplyFilter(filter) {
     this.filter = filter;
-    this.collection.reset(this.baseCollection);
+    this.collection.reset(this.baseCollection.models);
 
     if (this.filter !== null) {
       const filteredModels = this.collection.where({isCompleted: this.filter});
@@ -64,11 +69,6 @@ const taskCollectionView = Backbone.View.extend({
     }
 
     this.render();
-  },
-
-  onRemoveCompleted() {
-    this.baseCollection = this.baseCollection.filter(model => model.get('isCompleted') !== true);
-    this.onApplyFilter(this.filter);
   }
 });
 
