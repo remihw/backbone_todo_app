@@ -4,12 +4,12 @@ import dust from 'dustjs-helpers';
 import template from '../templates/task-template.html';
 
 const TaskView = Backbone.View.extend({
-  initialize() {
-    // code here
-  },
-
   id() {
     return `task_${this.model.cid}`;
+  },
+
+  initialize(options) {
+    this.options = options;
   },
 
   render() {
@@ -28,12 +28,12 @@ const TaskView = Backbone.View.extend({
     'click #btn-delete': 'deleteTask',
     'click #btn-edit': 'startEditMode',
     'keydown': 'onFieldKeyDown',
-    'click .task-description': 'toggleTaskCompletion',
-    'focusout input': 'onFieldFocusOut'
+    'focusout input': 'onFieldFocusOut',
+    'click .task-description': 'toggleTaskCompletion'
   },
 
   deleteTask() {
-    this.model.collection.remove(this.model);
+    this.options.taskCollection.remove(this.model);
   },
 
   startEditMode() {
@@ -46,6 +46,7 @@ const TaskView = Backbone.View.extend({
   },
 
   onFieldKeyDown(e) {
+    // 13 is the Enter key and 27 is the Escape key
     if (e.which === 13) {
       this.model.set('description', $(`#task_${this.model.cid} input`).val());
       this.endEditMode();

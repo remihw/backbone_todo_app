@@ -8,7 +8,6 @@ const TaskHeaderView = Backbone.View.extend({
   },
 
   render() {
-
     let templateToRender = null;
 
     dust.render(template, {}, (err, result) => {

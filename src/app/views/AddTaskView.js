@@ -25,11 +25,13 @@ const AddTaskView = Backbone.View.extend({
     return this;
   },
 
-  keyAction(e) {
-    if (e.which === 13) {
+  keyAction(event) {
+    // 13 is the Enter key
+    if (event.which === 13) {
       const newTask = new TaskModel({
         description: $('#input-new-task').val()
       });
+
       if (!newTask.isValid()) {
         $('#vaildation-error').text(newTask.validationError);
       } else {

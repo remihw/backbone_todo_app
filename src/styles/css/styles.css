@@ -13,34 +13,35 @@ button {
 }
 
 #app {
+  margin: 20px auto;
   max-width: 600px;
   min-width: 484px;
-  margin: 20px auto;
 }
+
 
 /*** TASK MENU ***/
 
 #task-menu {
-  color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #b1b0b0;
-  padding: 10px 16px;
+  color: #333;
   font-size: 13px;
+  padding: 10px 16px;
 }
 
 #task-menu button {
+  background-color: #fff;
   border: none;
   border-radius: 3px;
-  background-color: #fff;
   padding: 5px 8px;
   margin: 0 4px;
   font-size: 12px;
   font-weight: bold;
 }
 
-#btn-remove-complete {
+#btn-remove-complete-tasks {
   text-decoration: underline;
   cursor: pointer;
 }
@@ -49,29 +50,29 @@ button {
 /*** TASK LIST ***/
 
 #task-list-view {
+  background-color: #dadada;
   color: #333;
   padding: 10px 30px;
-  background-color: #dadada;
 }
 
 #task-list {
   position: relative;
-  box-sizing: border-box;
-  color: #333;
   background-color: #dadada;
+  color: #333;
   padding: 0 0 60px 0;
   min-height: 300px;
+  box-sizing: border-box;
 }
 
 .task-list-row, .task-list-row-edit {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
   flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  border-bottom: solid 1px #b9b9b9;
   font-size: 15px;
   height: 50px;
-  border-bottom: solid 1px #b9b9b9;
 }
 
 .task-list-row:hover .task-item-btns {
@@ -79,8 +80,8 @@ button {
 }
 
 .task-list-row-edit input {
-  width: 100%;
   padding: 4px 6px;
+  width: 100%;
 }
 
 .task-description {
@@ -93,22 +94,39 @@ button {
   text-decoration: line-through;
 }
 
-.fa-circle-o, .fa-check-circle-o {
-  font-size: 18px;
-  margin: 0 10px;
-}
-
-.fa-check-circle-o {
-  color: rgb(26, 201, 119);
-}
-
 .task-item-btns button {
   display: none;
   color: #555;
 }
 
 .active-filter-btn {
-  color: green;
+  color: #008000;
+}
+
+#input-new-task {
+  position: absolute;
+  bottom: 10px;
+  box-sizing:border-box;
+  padding: 6px 8px;
+  width: 100%;
+}
+
+#vaildation-error {
+  color: #d10202;
+  font-size: 14px;
+  margin: 20px 0 0;
+}
+
+
+/*** FONT-AWESOME ICONS ***/
+
+.fa-circle-o, .fa-check-circle-o {
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+.fa-check-circle-o {
+  color: #1ac977;
 }
 
 .fa-pencil, .fa-times {
@@ -118,19 +136,5 @@ button {
 }
 
 .fa-times {
-  color: rgb(235, 60, 60);
-}
-
-#input-new-task {
-  box-sizing:border-box;
-  width: 100%;
-  position: absolute;
-  bottom: 10px;
-  padding: 6px 8px;
-}
-
-#vaildation-error {
-  color: rgb(209, 2, 2);
-  font-size: 14px;
-  margin: 20px 0 0;
+  color: #eb3c3c;
 }

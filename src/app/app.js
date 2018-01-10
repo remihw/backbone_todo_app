@@ -7,7 +7,7 @@ const app = {
     if (!Backbone.history.started) {
       Backbone.history.start();
     }
-  },
+  }
 };
 
 export default app;
